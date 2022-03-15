@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.apitestplatform.mapper.AnimalForestIslanderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.apitestplatform.model.entity.AnimalForestIslanderDO">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="animal_name" property="animalName" />
+        <result column="amiibo_id" property="amiiboId" />
+        <result column="sex" property="sex" />
+        <result column="race" property="race" />
+        <result column="disposition" property="disposition" />
+        <result column="birthday" property="birthday" />
+        <result column="gift_one" property="giftOne" />
+        <result column="gift_two" property="giftTwo" />
+        <result column="gift_three" property="giftThree" />
+        <result column="gift_four" property="giftFour" />
+        <result column="favorite_song" property="favoriteSong" />
+        <result column="favorite_colour" property="favoriteColour" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, create_time, update_time, animal_name, amiibo_id, sex, race, disposition, birthday, gift_one, gift_two, gift_three, gift_four, favorite_song, favorite_colour
+    </sql>
+
+</mapper>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.apitestplatform.mapper.RepayTestStoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.apitestplatform.model.entity.RepayTestStoryDO">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="user_name" property="userName" />
+        <result column="git_address" property="gitAddress" />
+        <result column="association_story_point" property="associationStoryPoint" />
+        <result column="receive" property="receive" />
+        <result column="test_over" property="testOver" />
+        <result column="story_content" property="storyContent" />
+        <result column="is_important" property="isImportant" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, create_time, update_time, user_name, git_address, association_story_point, receive, test_over, story_content, is_important
+    </sql>
+
+    <update id="updateCaseById" parameterType="com.example.apitestplatform.model.entity.RepayTestStoryDO">
+        update repay_test_story
+        <set>
+            <if test="repayTestStoryDO.userName != null">
+                user_name = #{repayTestStoryDO.userName,jdbcType=VARCHAR},
+            </if>
+            <if test="repayTestStoryDO.gitAddress != null">
+                git_address = #{repayTestStoryDO.gitAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="repayTestStoryDO.associationStoryPoint != null">
+                association_story_point = #{repayTestStoryDO.associationStoryPoint,jdbcType=VARCHAR},
+            </if>
+            <if test="repayTestStoryDO.receive != null">
+                receive = #{repayTestStoryDO.receive,jdbcType=TINYINT},
+            </if>
+            <if test="repayTestStoryDO.testOver != null">
+                test_over = #{repayTestStoryDO.testOver,jdbcType=TINYINT},
+            </if>
+            <if test="repayTestStoryDO.storyContent != null">
+                story_content = #{repayTestStoryDO.storyContent,jdbcType=VARCHAR},
+            </if>
+            <if test="repayTestStoryDO.isImportant != null">
+                is_important = #{repayTestStoryDO.isImportant,jdbcType=TINYINT}
+            </if>
+        </set>
+        where id = #{repayTestStoryDO.id,jdbcType=BIGINT}
+    </update>
+
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.apitestplatform.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.apitestplatform.model.entity.UserDO">
+        <id column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="name" property="name" />
+        <result column="pwd" property="pwd" />
+        <result column="head_img" property="headImg" />
+        <result column="mail_box" property="mailBox" />
+        <result column="age" property="age" />
+        <result column="department" property="department" />
+        <result column="position" property="position" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, create_time, name, pwd, head_img, mail_box, age, department, position
+    </sql>
+
+    <update id="updateNotNullUser">
+        update user
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="mailBox != null">
+                mail_box = #{mailBox,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=TINYINT},
+            </if>
+            <if test="department != null">
+                department = #{department,jdbcType=VARCHAR},
+            </if>
+            <if test="position != null">
+                position = #{position,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>
