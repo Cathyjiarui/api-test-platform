@@ -1,5 +1,6 @@
 package com.example.apitestplatform.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.apitestplatform.model.entity.RepayTestStoryDO;
 import com.example.apitestplatform.model.request.Pager;
@@ -79,4 +80,16 @@ public interface RepayTestStoryService {
      * @Exception
      **/
     int insertTestCase(Map<String, String> repayTestStoryInfo);
+
+    /**
+     * 获取提测与在测的故事点数量
+     * @return String
+     */
+    JSONObject testSituation();
+
+    /**
+     * 获取每月数据
+     * @return String
+     */
+    JSONObject annualReport();
 }

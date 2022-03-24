@@ -128,4 +128,25 @@ public class RepayTestStoryController {
         int rows = repayTestStoryService.insertTestCase(repayTestStoryInfo);
         return rows == 1 ? JsonData.buildSuccess() : JsonData.buildError("添加失败！");
     }
+
+    /**
+     * 获取提测与在测的故事点数量
+     * @return com.example.apitestplatform.utils.JsonData
+     * @Exception
+     **/
+    @GetMapping("testSituation")
+    @ApiOperation("获取提测与在测的故事点数量")
+    public JsonData testSituation() {
+        return JsonData.buildSuccess(repayTestStoryService.testSituation());
+    }
+
+    /**
+     * 获取每月数据
+     * @return com.example.apitestplatform.utils.JsonData
+     **/
+    @GetMapping("annualReport")
+    @ApiOperation("获取每月数据")
+    public JsonData annualReport() {
+        return JsonData.buildSuccess(repayTestStoryService.annualReport());
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.apitestplatform.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -12,7 +13,10 @@ import com.example.apitestplatform.service.RepayTestStoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,7 +34,6 @@ public class RepayTestStoryServiceImpl implements RepayTestStoryService {
 
     /**
      * 查询所有未结束测试任务
-     *
      * @param current 当前页
      * @param size    每页大小
      * @return com.example.apitestplatform.model.request.Pager<com.example.apitestplatform.model.entity.RepayTestStoryDO>
@@ -112,6 +115,7 @@ public class RepayTestStoryServiceImpl implements RepayTestStoryService {
 
     /**
      * 根据测试任务编号查询测试任务
+     *
      * @param associationStoryPoint 测试任务编号
      * @return com.example.apitestplatform.model.entity.RepayTestStoryDO
      * @Exception
@@ -125,6 +129,7 @@ public class RepayTestStoryServiceImpl implements RepayTestStoryService {
 
     /**
      * 根据ID查询测试任务
+     *
      * @param id 测试任务ID
      * @return com.example.apitestplatform.model.entity.RepayTestStoryDO
      * @Exception
@@ -136,6 +141,7 @@ public class RepayTestStoryServiceImpl implements RepayTestStoryService {
 
     /**
      * 根据ID更新测试任务
+     *
      * @param repayTestStoryInfoDO 测试任务信息
      * @return int
      * @Exception
@@ -148,6 +154,7 @@ public class RepayTestStoryServiceImpl implements RepayTestStoryService {
 
     /**
      * 插入测试任务
+     *
      * @param repayTestStoryInfo 测试任务内容
      * @return int
      * @Exception
@@ -159,10 +166,98 @@ public class RepayTestStoryServiceImpl implements RepayTestStoryService {
         return repayTestStoryMapper.insert(repayTestStoryDO);
     }
 
-    private RepayTestStoryDO parseToRepayTestStory(Map<String, String> repayTestStoryInfoDO){
+    /**
+     * 获取提测与在测的故事点数量
+     * @return String
+     * @Exception
+     **/
+    @Override
+    public JSONObject testSituation() {
+        JSONObject returnData = new JSONObject();
+        //查询提测的案件数
+        QueryWrapper<RepayTestStoryDO> queryWrapper = new QueryWrapper<>();
+        queryWrapper
+                .lambda()
+                .eq(RepayTestStoryDO::getReceive, 0)
+                .eq(RepayTestStoryDO::getTestOver, 0);
+        Integer test = repayTestStoryMapper.selectCount(queryWrapper);
+        returnData.put("test", test);
+        //查询在测试的案件数
+        QueryWrapper<RepayTestStoryDO> queryWrapper1 = new QueryWrapper<>();
+        queryWrapper1
+                .lambda()
+                .eq(RepayTestStoryDO::getReceive, 1)
+                .eq(RepayTestStoryDO::getTestOver, 0);
+        Integer testing = repayTestStoryMapper.selectCount(queryWrapper1);
+        returnData.put("testing", testing);
+        return returnData;
+    }
+
+    /**
+     * 获取每月数据
+     * @return String
+     * @Exception
+     **/
+    @Override
+    public JSONObject annualReport() {
+        JSONObject returnData = new JSONObject();
+        List<String> months = Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec");
+        for (String month : months) {
+            switch (month) {
+                case "Jan":
+                    returnData.put(month, TestCaseCount("01-01 00:00:00", "02-01 00:00:00"));
+                    break;
+                case "Feb":
+                    returnData.put(month, TestCaseCount("02-01 00:00:00", "03-01 00:00:00"));
+                    break;
+                case "Mar":
+                    returnData.put(month, TestCaseCount("03-01 00:00:00", "04-01 00:00:00"));
+                    break;
+                case "Apr":
+                    returnData.put(month, TestCaseCount("04-01 00:00:00", "05-01 00:00:00"));
+                    break;
+                case "May":
+                    returnData.put(month, TestCaseCount("05-01 00:00:00", "06-01 00:00:00"));
+                    break;
+                case "Jun":
+                    returnData.put(month, TestCaseCount("06-01 00:00:00", "07-01 00:00:00"));
+                    break;
+                case "Jul":
+                    returnData.put(month, TestCaseCount("07-01 00:00:00", "08-01 00:00:00"));
+                    break;
+                case "Aug":
+                    returnData.put(month, TestCaseCount("08-01 00:00:00", "09-01 00:00:00"));
+                    break;
+                case "Sep":
+                    returnData.put(month, TestCaseCount("09-01 00:00:00", "10-01 00:00:00"));
+                    break;
+                case "Oct":
+                    returnData.put(month, TestCaseCount("10-01 00:00:00", "11-01 00:00:00"));
+                    break;
+                case "Nov":
+                    returnData.put(month, TestCaseCount("11-01 00:00:00", "12-01 00:00:00"));
+                    break;
+                case "Dec":
+                    returnData.put(month, TestCaseCount("12-01 00:00:00", "12-31 23:59:59"));
+                    break;
+                default:
+                    returnData.put(month, 0);
+            }
+        }
+        return returnData;
+    }
+
+    /**
+     * @return RepayTestStoryDO
+     * @Author zhangjia
+     * @Description 添加更新与新增信息
+     * @Date 17:32 2019-07-22
+     * @Param repayTestStoryInfoDO
+     **/
+    private RepayTestStoryDO parseToRepayTestStory(Map<String, String> repayTestStoryInfoDO) {
         RepayTestStoryDO repayTestStoryDO = new RepayTestStoryDO();
-        repayTestStoryInfoDO.forEach((key,val) -> {
-            switch (key){
+        repayTestStoryInfoDO.forEach((key, val) -> {
+            switch (key) {
                 case ConstString.ID:
                     repayTestStoryDO.setId(Long.parseLong(val));
                     break;
@@ -192,5 +287,23 @@ public class RepayTestStoryServiceImpl implements RepayTestStoryService {
             }
         });
         return repayTestStoryDO;
+    }
+
+    /**
+     * @return java.lang.Integer
+     * @Author zhangjia
+     * @Description 计算测试故事数量
+     * @Date 17:32 2019-07-22
+     * @Param [startDate, endDate]
+     **/
+    public Integer TestCaseCount(String startDate, String endDate) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY");
+        String year = simpleDateFormat.format(new Date()) + "-";
+        QueryWrapper<RepayTestStoryDO> queryWrapper = new QueryWrapper<>();
+        queryWrapper
+                .lambda()
+                .ge(RepayTestStoryDO::getCreateTime, year + startDate)
+                .lt(RepayTestStoryDO::getCreateTime, year + endDate);
+        return repayTestStoryMapper.selectCount(queryWrapper);
     }
 }
