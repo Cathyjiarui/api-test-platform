@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.apitestplatform.mapper.ApiTestCaseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.apitestplatform.model.entity.ApiTestCaseDO">
+        <id column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_implement" property="isImplement"/>
+        <result column="module_name" property="moduleName"/>
+        <result column="case_serial" property="caseSerial"/>
+        <result column="case_name" property="caseName"/>
+        <result column="request_type" property="requestType"/>
+        <result column="api_address" property="apiAddress"/>
+        <result column="request_parameter" property="requestParameter"/>
+        <result column="response_text" property="responseText"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id
+        ,create_time,update_time,is_implement,module_name,case_serial,case_name,request_type,api_address,request_parameter,response_text
+    </sql>
+
+    <update id="updateNotNullApi">
+        update api_test_case
+        <set>
+            <if test="isImplement != null">
+                is_implement = #{isImplement,jdbcType=TINYINT}
+            </if>
+            <if test="moduleName != null">
+                module_name = #{moduleName,jdbcType=VARCHAR}
+            </if>
+            <if test="caseSerial != null">
+                case_serial = #{caseSerial,jdbcType=VARCHAR}
+            </if>
+            <if test="caseName != null">
+                case_name = #{caseName,jdbcType=VARCHAR}
+            </if>
+            <if test="requestType != null">
+                request_type = #{requestType,jdbcType=TINYINT}
+            </if>
+            <if test="apiAddress != null">
+                api_address = #{apiAddress,jdbcType=VARCHAR}
+            </if>
+            <if test="requestParameter != null">
+                request_parameter = #{requestParameter,jdbcType=VARCHAR}
+            </if>
+            <if test="responseText != null">
+                response_text = #{responseText,jdbcType=VARCHAR}
+            </if>
+        </set>
+        where id = #{id,jdbcType=TINYINT}
+    </update>
+</mapper>
+
+

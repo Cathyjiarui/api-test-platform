@@ -4,21 +4,22 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.example.apitestplatform.model.entity.RepayTestStoryDO">
-        <id column="id" property="id" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="user_name" property="userName" />
-        <result column="git_address" property="gitAddress" />
-        <result column="association_story_point" property="associationStoryPoint" />
-        <result column="receive" property="receive" />
-        <result column="test_over" property="testOver" />
-        <result column="story_content" property="storyContent" />
-        <result column="is_important" property="isImportant" />
+        <id column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="user_name" property="userName"/>
+        <result column="git_address" property="gitAddress"/>
+        <result column="association_story_point" property="associationStoryPoint"/>
+        <result column="receive" property="receive"/>
+        <result column="test_over" property="testOver"/>
+        <result column="story_content" property="storyContent"/>
+        <result column="is_important" property="isImportant"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, create_time, update_time, user_name, git_address, association_story_point, receive, test_over, story_content, is_important
+        id
+        , create_time, update_time, user_name, git_address, association_story_point, receive, test_over, story_content, is_important
     </sql>
 
     <update id="updateCaseById" parameterType="com.example.apitestplatform.model.entity.RepayTestStoryDO">

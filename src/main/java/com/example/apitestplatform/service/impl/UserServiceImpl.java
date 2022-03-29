@@ -45,11 +45,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Boolean updateNotNullUser(Map<String, String> userInfo) {
         UserDO userDO = parseToUser(userInfo);
-        if (Objects.nonNull(userDO)) {
-            return userMapper.updateNotNullUser(userDO);
-        } else {
-            return false;
-        }
+        return userMapper.updateNotNullUser(userDO);
     }
 
     /**

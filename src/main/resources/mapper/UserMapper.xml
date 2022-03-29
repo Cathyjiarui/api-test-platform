@@ -4,20 +4,21 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.example.apitestplatform.model.entity.UserDO">
-        <id column="id" property="id" />
-        <result column="create_time" property="createTime" />
-        <result column="name" property="name" />
-        <result column="pwd" property="pwd" />
-        <result column="head_img" property="headImg" />
-        <result column="mail_box" property="mailBox" />
-        <result column="age" property="age" />
-        <result column="department" property="department" />
-        <result column="position" property="position" />
+        <id column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="name" property="name"/>
+        <result column="pwd" property="pwd"/>
+        <result column="head_img" property="headImg"/>
+        <result column="mail_box" property="mailBox"/>
+        <result column="age" property="age"/>
+        <result column="department" property="department"/>
+        <result column="position" property="position"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, create_time, name, pwd, head_img, mail_box, age, department, position
+        id
+        , create_time, name, pwd, head_img, mail_box, age, department, position
     </sql>
 
     <update id="updateNotNullUser">

@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 /**
  * <p>
@@ -26,6 +27,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("repay_test_story")
+@ToString(exclude = {"createTime"})
 public class RepayTestStoryDO implements Serializable {
 
     private static final long serialVersionUID = 1L;
